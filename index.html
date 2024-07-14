@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <div class="calculator">
-            <h1>Intrest-Calculator</h1>
+            <h2>Intrest-Calculator</h2>
             <div class="intrestType">
                 <h3 class="simple">Simple</h3>
                 <h3 class="compound">Compound</h3>
@@ -22,15 +22,15 @@
                     <input type="number" class="amount">
                 </div>
             </div>
-            <input type="range" class="amountRange slider" min="100" max="10000000">
+            <input type="range" class="amountRange slider" min="100" max="10000000" value="1">
             <div class="intrestSec">
                 <p>Rate of intrest [p.a]</p>
                 <div class="inputSec">
                     <input type="number" class="intrest">
                     <div class="text">%</div>
-                    </div>
+                </div>
             </div>
-            <input type="range" class="intrestRange slider" min="0" max="50">
+            <input type="range" class="intrestRange slider" min="0" max="50" value="1">
             <div class="timeSec">
                 <p>Time period</p>
                 <div class="inputSec">
@@ -38,7 +38,8 @@
                     <div class="text">Yr</div>
                 </div>
             </div>
-            <input type="range" class="timeRange slider" min="1" max="50">
+            <input type="range" class="timeRange slider" min="1" max="50" value="1">
+            <a class="invest" href="" target="_main">Start Investing</a>
         </div>
         <div class="response">
             <div class="amountSec">
@@ -49,15 +50,15 @@
                 <p>Total intrest</p>
                 <div class="intrestAmt"></div>
             </div>
-            <div class="timeSec">
+            <div class="amountSec">
                 <p>Total amount</p>
                 <div class="totalAmt"></div>
             </div>
         </div>
+        <div class="resChart">
+
+        </div>
     </div>
-    <center>
-        <a class="invest" href="" target="_main">Start Investing</a>
-    </center>
     <script src="app.js"></script>
 </body>
 </html>
