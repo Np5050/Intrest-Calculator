@@ -11,50 +11,67 @@ const principalAmt = document.querySelector('.principalAmt');
 const intrestAmt = document.querySelector('.intrestAmt');
 const totalAmt = document.querySelector('.totalAmt');
 
-amtRange.addEventListener('input', ()=>{
-    principalAmt.innerHTML = `${sbl}${amtRange.value}`;
-    amt.value = amtRange.value;
-    smpIntCal();
+let types = document.querySelectorAll(".type");
+
+let turn0 = true;
+types[0].style.borderColor = 'crimson';
+
+types.forEach((type, Idx) => {
+    type.addEventListener('click', () => {
+        if(Idx === 0){
+            types[0].style.borderColor = 'crimson';
+            types[1].style.borderColor = 'white';
+            smpIntCal();
+            turn0 = true;
+        } else {
+            types[1].style.borderColor = 'crimson';
+            types[0].style.borderColor = 'white';
+            cmpIntCal();
+            turn0 = false;
+        }
+    });
 });
-intrestRange.addEventListener('input', ()=>{
-    intrest.value = intrestRange.value;
-    smpIntCal();
-});
-timeRange.addEventListener('input', ()=>{
-    time.value = timeRange.value;
-    smpIntCal();
-});
-amt.addEventListener('input', ()=>{
-    principalAmt.innerHTML = `${sbl}${amt.value}`;
-    amtRange.value = amt.value;
-    smpIntCal();
-});
-intrest.addEventListener('input', ()=>{
-    intrestRange.value = intrest.value;
-    smpIntCal();
-});
-time.addEventListener('input', ()=>{
-    timeRange.value = time.value;
-    smpIntCal();
-});
+
+function mergeInp(key, merge){
+    key.addEventListener('input', () => {
+        merge.value = key.value;
+        if(turn0){
+            smpIntCal();
+        } else {
+            cmpIntCal();
+        };
+    });
+}
+
+mergeInp(amt, amtRange);
+mergeInp(amtRange, amt);
+mergeInp(intrest, intrestRange);
+mergeInp(intrestRange, intrest);
+mergeInp(time, timeRange);
+mergeInp(timeRange, time);
+
 
 let res;
 
 const smpIntCal = () => {
-    res = (amt.value)*(intrest.value);
+    principalAmt.innerHTML = `${sbl}${amt.value}`;
+    res = amt.value*intrest.value;
     res /= 100;
-    intrestAmt = (res.value)*(time.value);
-    intrestAmt.innerHTML = intrestAmt.value;
-    totalAmt.innerHTML = (intrestAmt.value) + (amt.value);
+    res *= time.value;
+    intrestAmt.innerHTML = `${sbl}${res.toFixed(0)}`;
+    totalAmt.innerHTML = `${sbl}${(res + Number(amt.value)).toFixed(0)}`;
 }
 
-const comIntCal = () => {
-    let int_rate;
-    for(let i = 0; i <= time; i++){
-        res = amt*intrest/100;
-        int_rate += res;
-        amt += res;
+const cmpIntCal = () => {
+    principalAmt.innerHTML = `${sbl}${amt.value}`;
+    let totalInt = 0;
+    let amount = Number(amt.value);
+    for(let i = 1; i <= time.value; i++){
+        res = amount*intrest.value;
+        res /= 100;
+        totalInt += res;
+        amount += res;
     }
-    intrestAmt.innerHTML = int_rate;
-    totalAmt.innerHTML = amt;
+    intrestAmt.innerHTML = `${sbl}${totalInt.toFixed(0)}`;
+    totalAmt.innerHTML = `${sbl}${amount.toFixed(0)}`; 
 }
